@@ -1,0 +1,17 @@
+ * {
+	box-sizing: border-box;	
+ }
+
+ h1	{
+ 	margin-bottom: 15px;
+ }
+
+img	{
+	border: 1px solid black;
+	margin: 0px 10px 10px 10px
+}
+
+.row {
+	width: 100%;
+	text-align: center;
+}
