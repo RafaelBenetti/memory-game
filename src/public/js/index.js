@@ -1,66 +1,83 @@
-var MemoryGame = (function () {
+var Index = (function () {
     'use strict';
 
-    var pieces = ['html', 'css', 'js', 'html', 'css', 'js'];
+    var pieces = [];
+
+    var init = function () {
+
+        $.getJSON("js/pieces.json", function (json) {
+            pieces = ArrayExtension.shuffle(json.concat(json));
+            configureGame();
+        });
+    };
 
     var configureGame = function () {
-        
-        $('.back').each(function(){
-            var piece = getRandomPiece();
-            $(this).attr('piece', piece);
+
+        pieces.forEach(function (piece) {
+
+            var element = $('#templates > div').clone();
+
+            element.find('.piece-front .item').css('background-color', piece.backgroundColor);
+            element.find('.piece-front').css('color', piece.fontColor);
+            element.find('.piece-front').find('span').text(piece.name);
+
+            element.find('.piece-back').click(turnPiece);
+
+            $('.row').append(element);
         });
-
-        $('.back').click(function(){
-            turnPiece(this);
-        });
     };
 
-    var getRandomPiece = function(){
-        var index = Math.floor(Math.random() * pieces.length);        
-        var piece = pieces[index];
-        pieces.splice(index, 1);
-        return piece;
+    var turnPiece = function () {
+        var father = $(this).parent();
+        $(father).find('.piece-front').removeClass('hidden');
+        $(father).find('.piece-back').addClass('hidden');
+
+        validatePiece();
     };
 
-    var turnPiece = function(element){
-        var piece = $('#templates .item-' + $(element).attr('piece')).clone();        
-        $(element).parent().parent().append(piece);
-        $(element).parent().addClass('hidden');
-
-        if (isFirstPiece(piece)){
+    var validatePiece = function () {
+        if (isFirstPiece())
             return;
-        }
 
-        if (isMyPair(piece)){
-            $('.row .incomplete').removeClass('incomplete');
+        if (isMyPair())
             return;
-        }
 
-        setTimeout(function(){            
-            resetOptions(piece);
-        }, 1500);        
+        blockOthersPieces();
     };
 
-    var isFirstPiece = function(){
+    var disableOthersPieces = function () {
+        $('.row .back').attr('disabled', true);
+    };
+
+    var enableOthersPieces = function () {
+        $('.row .back').attr('disabled', false);
+    };
+
+    var isFirstPiece = function () {
         var total = $('.row .hidden').length;
         return total % 2 != 0;
     };
 
-    var isMyPair = function(piece){
-        var total = $('.row .hidden').parent().find('.' + $(piece).attr('piece')).length;
-        return total == 2;
+    var isMyPair = function () {
+
+        var pieces = $('.row').find('.piece-front');
+
+        pieces.array.forEach(function (piece) {
+            var text = piece.find('span').text();
+            var total = pieces.find('span:contains(' + text + ')');
+            if (total != 2)
+                return false;
+            else
+                return true;
+        });
     };
 
-    var resetOptions = function(piece){
-          $('.row .incomplete').parent().find('.hidden').removeClass('hidden').parent().find('.incomplete').remove();
-    };
-    
     return {
-        init: configureGame
+        init: init
     };
-      
+
 })();
 
-$(document).ready(function(){
-    MemoryGame.init();
+$(document).ready(function () {
+    Index.init();
 });

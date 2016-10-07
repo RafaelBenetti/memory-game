@@ -1,0 +1,22 @@
+[
+    {
+        "name": "js",
+        "backgroundColor": "#F9BF3B",
+        "fontColor": "#000000"
+    },
+    {
+        "name": "css",
+        "backgroundColor": "#22A7F0",
+        "fontColor": "#FFFFFF"
+    },
+    {
+        "name": "html",
+        "backgroundColor": "#D35400",
+        "fontColor": "#FFFFFF"
+    },
+    {
+        "name": "c#",
+        "backgroundColor": "#663399",
+        "fontColor": "#FFFFFF"
+    }     
+]

@@ -16,26 +16,3 @@
 .back span {
   color: #FFFFFF;
 }
-
-.css {
-  background-color: #22A7F0;
-}
-.css span {
-  color: #FFFFFF;
-}
-
-.js {
-  background-color: #F9BF3B;
-}
-.js span {
-  color: black;
-}
-
-.html {
-  background-color: #D35400;
-}
-.html span { 
-  color: #FFFFFF;
-  font-size: 85px;
-  letter-spacing: 0px;
-}
