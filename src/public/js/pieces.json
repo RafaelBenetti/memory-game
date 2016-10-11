@@ -18,5 +18,25 @@
         "name": "c#",
         "backgroundColor": "#663399",
         "fontColor": "#FFFFFF"
-    } 
+    },
+    {
+        "name": "node",
+        "backgroundColor": "#7FBD42",
+        "fontColor": "#000000"
+    },
+    {
+        "name": "php",
+        "backgroundColor": "#6082BB",
+        "fontColor": "#FFFFFF"
+    },
+    {
+        "name": "ruby",
+        "backgroundColor": "#EB5745",
+        "fontColor": "#FFFFFF"
+    },
+    {
+        "name": "c++",
+        "backgroundColor": "#076390",
+        "fontColor": "#FFFFFF"
+    }  
 ]
