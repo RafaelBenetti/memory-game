@@ -28,6 +28,10 @@ var Index = (function () {
     };
 
     var turnPiece = function () {
+
+        if($(this).hasClass('disabled'))
+            return;
+
         var father = $(this).parent();
         $(father).find('.piece-front').removeClass('hidden');
         $(father).find('.piece-back').addClass('hidden');
@@ -42,34 +46,54 @@ var Index = (function () {
         if (isMyPair())
             return;
 
-        blockOthersPieces();
+        disableOthersPieces();
+        resetOptions();
+    };
+
+    var resetOptions = function () {
+
+        setTimeout(function () {
+            
+            var front = $('.row .error');
+            $(front).removeClass('error');
+            $(front).addClass('hidden');
+                 
+            var back = front.parent().find('.piece-back');
+            $(back).removeClass('hidden');
+            
+            enableOthersPieces();
+        }, 1000);
     };
 
     var disableOthersPieces = function () {
-        $('.row .back').attr('disabled', true);
+        $('.row .piece-back').addClass('disabled');
     };
 
     var enableOthersPieces = function () {
-        $('.row .back').attr('disabled', false);
+        $('.row .piece-back').removeClass('disabled');
     };
 
     var isFirstPiece = function () {
-        var total = $('.row .hidden').length;
+        var total = $('.row .piece-back.hidden').length
         return total % 2 != 0;
     };
 
     var isMyPair = function () {
 
-        var pieces = $('.row').find('.piece-front');
+        var elements = Array.from($('.row .piece-front'));
+        var isMyPair = true;
 
-        pieces.array.forEach(function (piece) {
-            var text = piece.find('span').text();
-            var total = pieces.find('span:contains(' + text + ')');
-            if (total != 2)
-                return false;
-            else
-                return true;
+        elements.forEach(function (piece) {
+            var text = $(piece).find('span').text();
+            var total = $('.row .piece-front').not('.hidden').find('span:contains(' + text + ')').length;
+            if (total == 1) {
+                $(piece).addClass('error');
+                isMyPair = false;
+            }
+                
         });
+
+        return isMyPair;
     };
 
     return {

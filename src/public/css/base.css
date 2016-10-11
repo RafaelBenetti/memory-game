@@ -10,3 +10,8 @@
 .hidden {
   display: none !important;
 }
+
+.disabled .item {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

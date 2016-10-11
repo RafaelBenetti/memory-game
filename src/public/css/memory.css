@@ -1,7 +1,6 @@
 .item {
   border-radius: 2px;
   cursor: pointer;
-  display: inline-block;
   font-size: 100px;
   font-style: bold;  
   height: 200px;
@@ -15,4 +14,8 @@
 }
 .back span {
   color: #FFFFFF;
+}
+
+.piece-front .item {
+  cursor: not-allowed;
 }
